@@ -2,22 +2,12 @@ package dad.imc;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -25,7 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.converter.NumberStringConverter;
 
 public class IMC extends Application{
 
@@ -95,24 +84,9 @@ public class IMC extends Application{
 		//Conectar strings
 		pesoText.textProperty().bindBidirectional(peso);
 		alturaText.textProperty().bindBidirectional(altura);
-		
-		//imcText.textProperty().bindBidirectional(imc, new NumberStringConverter());
 		calificacionText.textProperty().bindBidirectional(calificacion);
-				
-		//conectamos el resultado con el conector
-		//Conectar string con int 
 		imcText.textProperty().bindBidirectional(imc);
-		
-		//peso.addListener((o, ov, nv)-> {a = Integer.parseInt(nv);});
-		//altura.addListener((o, ov, nv)-> {p = Double.parseDouble(nv);});
-		
-		//DecimalFormat df = new DecimalFormat("#.##");
-		//imc.bind(Double.parseDouble(peso.get()));
-		
-		DecimalFormat df = new DecimalFormat("#.##");
-		
-		
-		
+
 		imc.bind(Bindings.createStringBinding(() -> {
 			if (altura.get().length() == 0 || peso.get().length() == 0 ) {
 		        return "(peso * altura ^ 2)"; 
@@ -125,27 +99,25 @@ public class IMC extends Application{
             return roundedValue.toPlainString();
 		    }}, peso, altura));
 		
-		//imc.bind(Bindings.when(peso.isEqualTo(0).or(altura.isEqualTo(0))).then(666666666)  
-        //.otherwise(peso.divide((altura.divide(100)).multiply(altura.divide(100)))));
-		
 		/*
+		imc.bind(Bindings.when(peso.isEqualTo(0).or(altura.isEqualTo(0))).then(0.0)  
+        .otherwise(peso.divide((altura.divide(100)).multiply(altura.divide(100)))));
 		
-		//
+		
+		DecimalFormat df = new DecimalFormat("#.##");
+		
 		imc.bind(Bindings.createStringBinding(() -> {
-		    if (altura.get().length() == 0 || peso.get().length() == 0 ) {
+		    if (peso.get() == 0 || altura.get() == 0) {
 		        return "(peso * altura ^ 2)"; 
 		    } else {
+		    	double alturaget = altura.get();
+		    	double pesoaget = peso.get();
 		    	
-		    	double imcfinal = (Double.parseDouble(peso.get()) / ((Double.parseDouble(altura.get()) / 100)* (Double.parseDouble(altura.get()) / 100)));
-		       return "" + df.format(imcfinal);
+		    	double imcfinal = (pesoaget / ((alturaget / 100)* (alturaget / 100)));
+		        return "" + df.format(imcfinal);
 		    }
 		}, peso, altura));
-		
 		*/
-		
-
-	
-
 		
 	}
 }
