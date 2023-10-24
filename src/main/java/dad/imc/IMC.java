@@ -61,6 +61,9 @@ public class IMC extends Application{
 		imc.addListener((o, ov, nv)-> {
 			System.out.print("imc = " + nv);
 			
+			if (nv.equals("(peso * altura ^ 2)")) {
+				calificacion.set("Bajo peso | Normal | Sobrepeso | Obeso");
+			}
 			double imcnv = Double.parseDouble(nv); 
 			
 			calificacion.set("" + imcnv);
@@ -88,7 +91,7 @@ public class IMC extends Application{
 		imcText.textProperty().bindBidirectional(imc);
 
 		imc.bind(Bindings.createStringBinding(() -> {
-			if (altura.get().length() == 0 || peso.get().length() == 0 ) {
+			if (altura.get().length() == 0 || peso.get().length() == 0 || altura.get().equals("0") || peso.get().equals("0") ) {
 		        return "(peso * altura ^ 2)"; 
 		    } else {
 		    	
